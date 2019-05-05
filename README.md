@@ -6,12 +6,44 @@ A README file is included in the GitHub repo containing the following informatio
 
 ### Server Information
 
-IP Address: 
-URL: 
+IP Address: 18.233.10.243
+
+URL: http://18.233.10.243.xip.io/
 
 ### Software Installed
 
-
+apache2
+python-setuptools 
+libapache2-mod-wsgi
+PostgreSQL
+bleach==3.1.0
+certifi==2018.11.29
+chardet==3.0.4
+Click==7.0
+Flask==1.0.2
+Flask-HTTPAuth==3.2.4
+Flask-SQLAlchemy==2.3.2
+httplib2==0.12.1
+idna==2.8
+itsdangerous==1.1.0
+Jinja2==2.10
+MarkupSafe==1.1.0
+oauth2client==4.1.3
+packaging==19.0
+passlib==1.7.1
+psycopg2-binary==2.7.7
+pyasn1==0.4.5
+pyasn1-modules==0.2.4
+pycodestyle==2.5.0
+pyparsing==2.3.1
+redis==3.2.0
+requests==2.21.0
+rsa==4.0
+six==1.12.0
+SQLAlchemy==1.2.18
+urllib3==1.24.1
+webencodings==0.5.1
+Werkzeug==0.14.1
 
 ### Configuration 
 
