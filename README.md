@@ -165,7 +165,7 @@ Rename application.py to __init__.py
 ```sh
 cd FlaskApp
 sudo mv application.py __init__.py
-```sh
+```
 
 Update 2 lines of code in __init__.py to refer to the new path of clinet json file
 
