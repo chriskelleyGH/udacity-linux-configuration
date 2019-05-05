@@ -2,8 +2,6 @@
 # Linux Server Configuration
 
 
-A README file is included in the GitHub repo containing the following information: IP address, URL, summary of software installed, summary of configurations made, and a list of third-party resources used to complete this project.
-
 ### Server Information
 
 IP Address: 18.233.10.243
@@ -13,59 +11,87 @@ URL: http://18.233.10.243.xip.io/
 ### Software Installed
 
 apache2
+
 python-setuptools 
+
 libapache2-mod-wsgi
+
 PostgreSQL
+
 bleach==3.1.0
+
 certifi==2018.11.29
+
 chardet==3.0.4
+
 Click==7.0
+
 Flask==1.0.2
+
 Flask-HTTPAuth==3.2.4
+
 Flask-SQLAlchemy==2.3.2
+
 httplib2==0.12.1
+
 idna==2.8
+
 itsdangerous==1.1.0
+
 Jinja2==2.10
+
 MarkupSafe==1.1.0
+
 oauth2client==4.1.3
+
 packaging==19.0
+
 passlib==1.7.1
+
 psycopg2-binary==2.7.7
+
 pyasn1==0.4.5
+
 pyasn1-modules==0.2.4
+
 pycodestyle==2.5.0
+
 pyparsing==2.3.1
+
 redis==3.2.0
+
 requests==2.21.0
+
 rsa==4.0
+
 six==1.12.0
+
 SQLAlchemy==1.2.18
+
 urllib3==1.24.1
+
 webencodings==0.5.1
+
 Werkzeug==0.14.1
 
 ### Configuration 
 
-Update all installed packages
+1 Update all installed packages
+
 ```sh
 sudo apt-get update
 sudo apt-get upgrade
 ```
 
-Add the following to the Lightsail management console: Application = Custom, Protocol = TCP, Port = 2200
+2 Add the following to the Lightsail management console: Application = Custom, Protocol = TCP, Port = 2200
 
-add to lightsail management console: Application = Custom, Protocol = TCP, Port = 2200
-edit the port in sshd_config in /etc/ssh/ folder to 2200.  uncomment # port 22
+3 Change the port in **/etc/ssh/sshd_config** to 2200. 
+
+```sh
 service ssh restart
-download private key from amazon
+```
 
-change permissions of the key.   This step is required.
-$ chmod 600 LightsailDefaultKey-us-east-1.pem
-run ssh -i [fileName] [username]@[Public IP]
-$ ssh -i LightsailDefaultKey-us-east-1.pem -p 2200 ubuntu@18.233.10.243
-
-Configure the Uncomplicated Firewall (UFW) to only allow incoming connections for SSH (port 2200), HTTP (port 80), and NTP (port 123).
+4 Configure the Uncomplicated Firewall (UFW) to only allow incoming connections for SSH (port 2200), HTTP (port 80), and NTP (port 123).
 
 ```sh
 $ sudo ufw status
@@ -78,33 +104,33 @@ $ sudo ufw enable
 $ sudo ufw status
 ```
 
-Create a new user account named grader.
+5 Create a new user account named grader.
 
 ```sh
 $ sudo adduser grader
 ```
 
-Give grader sudo permission.  Create grader file inside sudoers.d.
+6 Give grader sudo permission.  Create grader file inside sudoers.d.
 
 ```sh
 touch /etc/sudoers.d/grader
 ```
 
-Open the file in nano (sudo nano /etc/sudoers.d/grader) and add the following-
+7 Open the file in nano (sudo nano /etc/sudoers.d/grader) and add the following-
 
 ```sh
 grader ALL=(ALL) NOPASSWD:ALL
 ```
 
-Create an SSH key pair for grader using the ssh-keygen tool.
+8 Create an SSH key pair for grader using the ssh-keygen tool.  Upload public key to the server.
 
-Configure the local timezone to UTC.
+9 Configure the local timezone to UTC.
 
 ```sh
 sudo dpkg-reconfigure tzdata
 ```
 
-Install and configure Apache to serve a Python mod_wsgi application.
+10 Install and configure Apache to serve a Python mod_wsgi application.
 
 ```sh
 Install Apache sudo apt-get install apache2
@@ -112,94 +138,95 @@ Install mod_wsgi sudo apt-get install python-setuptools libapache2-mod-wsgi
 Restart Apache sudo service apache2 restart
 ```
 
-Install and configure PostgreSQL
+11 Install and configure PostgreSQL
 
 ```sh
 sudo apt-get install postgresql
 ```
 
-Check if no remote connections are allowed
+12 Check if no remote connections are allowed
 
 ```sh
 sudo nano /etc/postgresql/10/main/pg_hba.conf
 ```
 
-Login as user "postgres" 
+13 Login as user "postgres" 
 
 ```sh
 sudo su - postgres
 ```
 
-Get into postgreSQL shell 
+14 Get into postgreSQL shell 
 
 ```sh
 psql
 ```
 
-Create a new database named catalog and create a new user named catalog in postgreSQL shell
+15 Create a new database named catalog and create a new user named catalog in postgreSQL shell
 
 ```sh
 postgres=# CREATE DATABASE catalog;
 postgres=# CREATE USER catalog;
 ```
 
-Set a password for user catalog
+16 Set a password for user catalog
 
 ```sh
 postgres=# ALTER ROLE catalog WITH PASSWORD 'password';
 ```
 
-Give user "catalog" permission to "catalog" application database
+17 Give user "catalog" permission to "catalog" application database
 
 ```sh
 postgres=# GRANT ALL PRIVILEGES ON DATABASE catalog TO catalog;
 ```
 
-Quit postgreSQL 
+18 Quit postgreSQL 
 
 ```sh
 postgres=# \q
 ```
 
-Exit from user "postgres"
+19 Exit from user "postgres"
 
 ```sh
 exit
 ```
 
-Install Git 
+20 Install Git 
 
 ```sh
 sudo apt-get install git
 ```
 
-Create the application directory 
+21 Create the application directory 
+
 ```sh
 cd /var/www
 sudo mkdir FlaskApp
 cd FlaskApp
 ```
 
-Clone the Catalog App to the server
+22 Clone the Catalog App to the server
 
 ```sh
 sudo git clone https://github.com/chriskelleyGH/catalog_app.git
 ```
 
-Rename the project's name
+23 Rename the project's name
 
 ```sh
  sudo mv ./catalog_app ./FlaskApp
  ```
  
-Rename application.py to __init__.py
+24 Rename application.py to __init__.py
 
 ```sh
 cd FlaskApp
 sudo mv application.py __init__.py
 ```
 
-Update 2 lines of code in __init__.py to refer to the new path of clinet json file
+25 Update 2 lines of code in __init__.py to refer to the new path of clinet json file
 
 ```sh
 sudo nano __init__.
@@ -217,37 +244,38 @@ Second change:
 oauth_flow = flow_from_clientsecrets('/var/www/FlaskApp/FlaskApp/client_secrets.json', scope=‘')
 ```
 
-Edit database_setup.py, __init__.py,data.py, and any other reference to sqlite in a file and change 
+26 Edit database_setup.py, __init__.py,data.py, and any other reference to sqlite in a file and change 
 
 ```sh
 engine = create_engine('sqlite:///catalog.db') to
 engine = create_engine('postgresql://catalog:udacity2019@localhost/catalog')
 ```
 
-Install pip 
+27 Install pip 
 
 ```sh
 sudo apt-get install python-pip
 ```
 
-Use pip to install dependencies (MAKE SURE TO CREATE REQUIREMENTS.TXT FILE)
+28 Use pip to install dependencies (MAKE SURE TO CREATE REQUIREMENTS.TXT FILE)
 
 ```sh
 $ sudo pip install -r requirements.txt
 ```
 
-Install psycopg2
+29 Install psycopg2
+
 ```sh
 sudo apt-get -qqy install postgresql python-psycopg2
 ```
 
-Create database schema
+30 Create database schema
 
 ```sh
 sudo python database_setup.py
 ```
 
-Configure and Enable a New Virtual Host
+31 Configure and Enable a New Virtual Host
 
 Create FlaskApp.conf to edit
 
@@ -255,7 +283,7 @@ Create FlaskApp.conf to edit
 sudo nano /etc/apache2/sites-available/FlaskApp.conf
 ```
 
-Add the following lines of code to the file to configure the virtual host.
+32 Add the following lines of code to the file to configure the virtual host.
 
 ```sh
 <VirtualHost *:80>
@@ -278,20 +306,20 @@ Add the following lines of code to the file to configure the virtual host.
 </VirtualHost>
 ```
        
-Enable the virtual host with the following command
+33 Enable the virtual host with the following command
 
 ```sh
 sudo a2ensite FlaskApp
 ```
 
-Create the .wsgi File under /var/www/FlaskApp:
+34 Create the .wsgi File under /var/www/FlaskApp:
 
 ```sh
 cd /var/www/FlaskApp
 sudo nano flaskapp.wsgi
 ```
 
-Add the following lines of code to the flaskapp.wsgi file:
+36 Add the following lines of code to the flaskapp.wsgi file:
 
 ```sh
 import sys
@@ -302,34 +330,34 @@ from FlaskApp import app as application
 application.secret_key = ’super_secret_key'
 ```
 
-Restart Apache
+37 Restart Apache
 
 ```sh
 sudo service apache2 reload
 sudo service apache2 restart
 ```
 
-Configure Google OAuth
+38 Configure Google OAuth
 
-Visit https://console.developers.google.com/apis and obtain Oauth credentials
-Create a new project
-Choose credentials from the menu on the left
-Create an OAuth Client ID
-Configure the consent screen
-When you're presented with a list of application types, choose Web application.  Name project item catalog
-Enter authorized javascript origins
-Enter authorized redirect URI
+* Visit https://console.developers.google.com/apis and obtain Oauth credentials
+* Create a new project
+* Choose credentials from the menu on the left
+* Create an OAuth Client ID
+* Configure the consent screen
+* When you're presented with a list of application types, choose Web application.  Name project item catalog
+* Enter authorized javascript origins
+* Enter authorized redirect URI
 
-Authorized Javascript Origins
-http://18.233.10.243.xip.io
+   Authorized Javascript Origins
+   http://18.233.10.243.xip.io
 
-Authorized Redirect URIS
-http://18.233.10.243.xip.io/login
-http://18.233.10.243.xip.io/gconnect
+   Authorized Redirect URIS
+   http://18.233.10.243.xip.io/login
+   http://18.233.10.243.xip.io/gconnect
 
-In the Auth Content Screen tab. add xip.io in the Authorized Domains
+* In the Auth Content Screen tab. add xip.io in the Authorized Domains
        
-Update login.html file with google client ID
+39 Update login.html file with google client ID
 
 ```sh
           <div id="signinButton">
@@ -345,15 +373,15 @@ Update login.html file with google client ID
         </div>
 ```
 
-From google developer console, go to project and download JSON.  (Refer To Lesson 6-9 If Necessary) 
+40 From google developer console, go to project and download JSON.  (Refer To Lesson 6-9 If Necessary) 
 
-Rename the file client_secrets.json
+41 Rename the file client_secrets.json
 
-Replace the client_secrets.json file (from the developer item catalog application) on the LightSail server.   This will be in the same directory as the main python file.
+42 Replace the client_secrets.json file (from the developer item catalog application) on the LightSail server.   This will be in the same directory as the main python file.
 
-Make sure .git directory is not available from the browser.
+43 Make sure .git directory is not available from the browser.
 
-Put this in an .htaccess file at the root of your web server:
+Put the following text in an .htaccess file at the root of your web server:
 
 ```sh
 RedirectMatch 404 /\.git
