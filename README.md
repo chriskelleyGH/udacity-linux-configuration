@@ -352,8 +352,7 @@ sudo service apache2 restart
    http://18.233.10.243.xip.io
 
    Authorized Redirect URIS
-   http://18.233.10.243.xip.io/login
-   http://18.233.10.243.xip.io/gconnect
+   http://18.233.10.243.xip.io
 
 * In the Auth Content Screen tab. add xip.io in the Authorized Domains
        
