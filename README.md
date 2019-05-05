@@ -8,7 +8,7 @@ IP Address: 18.233.10.243
 
 SSH Port: 2200
 
-URL: http://18.233.10.243.xip.io/
+URL: http://18.233.10.243.xip.io
 
 ### Software Installed
 
