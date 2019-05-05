@@ -398,3 +398,13 @@ https://www.digitalocean.com/community/tutorials/how-to-deploy-a-flask-applicati
 
 https://medium.com/coding-blocks/creating-user-database-and-adding-access-on-postgresql-8bfcd2f4a91e
 
+https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet
+
+https://github.com/jungleBadger/-nanodegree-linux-server/blob/master/README.md
+
+https://github.com/jungleBadger/-nanodegree-linux-server-troubleshoot
+
+https://stackoverflow.com/questions/14238665/can-a-public-ip-address-be-used-as-google-oauth-redirect-uri
+
+
+
