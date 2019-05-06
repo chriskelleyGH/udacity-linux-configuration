@@ -387,6 +387,13 @@ Put the following text in an .htaccess file at the root of your web server:
 ```sh
 RedirectMatch 404 /\.git
 ```
+44 Disable the ability to login as root remotely.
+
+Update /etc/ssh/sshd_config
+
+* Change the line PermitRootLogin to no
+
+* Add the line AllowUsers grader
 
 ### References
 
